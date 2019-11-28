@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <createTable tableName="address">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="addressPK"/>
+            </column>
+            <column name="address" type="varchar(150)"/>
+            <column name="address2" type="varchar(150)"/>
+            <column name="zip_code" type="varchar(20)"/>
+            <column name="state" type="varchar(50)"/>
+            <column name="city" type="varchar(100)"/>
+        </createTable>
+
+        <addColumn tableName="_user">
+            <column name="phone" type="varchar(30)"/>
+            <column name="news_subscription" type="boolean"/>
+            <column name="offer_subscription" type="boolean"/>
+            <column name="shipping_address_id" type="bigint"/>
+            <column name="mailing_address_id" type="bigint"/>
+            <column name="billing_address_id" type="bigint"/>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="shipping_address_id"
+                                 baseTableName="_user"
+                                 constraintName="fk_shipping_address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+
+        <addForeignKeyConstraint baseColumnNames="mailing_address_id"
+                                 baseTableName="_user"
+                                 constraintName="fk_mailing_address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+
+        <addForeignKeyConstraint baseColumnNames="billing_address_id"
+                                 baseTableName="_user"
+                                 constraintName="fk_billing_address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <createTable tableName="watch_lot">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="watch_lot_PK"/>
+            </column>
+
+            <column name="platform_id" type="bigint"/>
+            <column name="user_id" type="bigint"/>
+
+            <column name="external_id" type="varchar(50)"/>
+            <column name="lot_number" type="varchar(50)"/>
+
+            <column name="make" type="varchar(50)"/>
+            <column name="model" type="varchar(50)"/>
+            <column name="modification" type="varchar(50)"/>
+            <column name="chassis" type="varchar(50)"/>
+
+            <column name="auction_date" type="timestamp"/>
+            <column name="auction" type="varchar(100)"/>
+            <column name="year" type="smallint"/>
+            <column name="average_price_usd" type="integer"/>
+            <column name="mileage_mi" type="integer"/>
+            <column name="color" type="varchar(50)"/>
+            <column name="options" type="varchar(50)"/>
+
+            <column name="price_usd" type="integer"/>
+            <column name="previous_price_usd" type="integer"/>
+            <column name="status" type="varchar(50)"/>
+            <column name="previous_status" type="varchar(50)"/>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="platform_id"
+                                 baseTableName="watch_lot"
+                                 constraintName="fk_watch_lot_platform_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="platform"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="watch_lot"
+                                 constraintName="fk_watch_lot_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="_user"/>
+
+    </changeSet>
+</databaseChangeLog>

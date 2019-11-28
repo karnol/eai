@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <update tableName="_user">
+            <column name="email" value="system"/>
+            <where>login='system'</where>
+        </update>
+        <update tableName="_user">
+            <column name="email" value="anonymoususer"/>
+            <where>login='anonymoususer'</where>
+        </update>
+        <update tableName="_user">
+            <column name="email" value="admin"/>
+            <where>login='admin'</where>
+        </update>
+        <update tableName="_user">
+            <column name="email" value="user"/>
+            <where>login='user'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

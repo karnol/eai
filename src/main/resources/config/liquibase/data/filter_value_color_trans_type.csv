@@ -1,0 +1,4 @@
+value;name;filter_name;parent_value;platform_id
+0,1;MANUAL;TRANSMISSION_TYPE;null;1
+2;AUTOMATIC;TRANSMISSION_TYPE;null;1
+grey;grey;COLOR;null;1

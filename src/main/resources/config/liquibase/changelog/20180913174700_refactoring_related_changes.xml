@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <dropTable tableName="platform"/>
+        <dropTable tableName="filter_value"/>
+        <createTable tableName="filter">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="filterPK"/>
+            </column>
+            <column name="external_id" type="varchar(50)"/>
+            <column name="name" type="varchar(150)"/>
+            <column name="parent_external_id" type="varchar(50)"/>
+            <column name="type" type="varchar(50)"/>
+            <column name="platform" type="varchar(50)"/>
+            <column name="additional_info" type="varchar(250)"/>
+        </createTable>
+        <loadData
+            file="config/liquibase/data/filter_data.csv"
+            separator=";"
+            tableName="filter"/>
+
+        <createTable tableName="exchange_rate">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="exchangeRatePK"/>
+            </column>
+            <column name="from" type="varchar(20)"/>
+            <column name="to" type="varchar(20)"/>
+            <column name="rate" type="double"/>
+            <column name="modified" type="timestamp"/>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

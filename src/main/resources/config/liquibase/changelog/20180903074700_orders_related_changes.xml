@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <insert tableName="_authority">
+            <column name="name" value="ROLE_MANAGER"/>
+        </insert>
+        <insert tableName="_user">
+            <column name="id" value="5"/>
+            <column name="login" value="manager"/>
+            <column name="password_hash" value="$2a$10$GMALUovhXO197I9k9jdFR.pZfWpvd2sOYKPsm/iT/XMiiLksIDRim"/>
+            <column name="first_name" value="Manager"/>
+            <column name="last_name" value="Manager"/>
+            <column name="email" value="manager"/>
+            <column name="activated" value="true"/>
+            <column name="lang_key" value="en"/>
+            <column name="created_by" value="system"/>
+            <column name="last_modified_by" value="system"/>
+        </insert>
+        <insert tableName="_user_authority">
+            <column name="user_id" value="5"/>
+            <column name="authority_name" value="ROLE_MANAGER"/>
+        </insert>
+        <createTable tableName="t_order">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="orderPK"/>
+            </column>
+
+            <column name="platform_id" type="bigint"/>
+            <column name="user_id" type="bigint"/>
+
+            <column name="external_id" type="varchar(50)"/>
+            <column name="lot_number" type="varchar(50)"/>
+
+            <column name="make" type="varchar(50)"/>
+            <column name="model" type="varchar(50)"/>
+            <column name="modification" type="varchar(50)"/>
+            <column name="chassis" type="varchar(50)"/>
+
+            <column name="auction_date" type="timestamp"/>
+            <column name="auction" type="varchar(100)"/>
+            <column name="year" type="smallint"/>
+            <column name="average_price_usd" type="integer"/>
+            <column name="mileage_mi" type="integer"/>
+            <column name="color" type="varchar(50)"/>
+            <column name="options" type="varchar(50)"/>
+
+            <column name="price_usd" type="integer"/>
+            <column name="price_original" type="integer"/>
+            <column name="status" type="varchar(50)"/>
+
+            <column name="order_status" type="varchar(50)"/>
+            <column name="bidding_price" type="integer"/>
+            <column name="priority" type="tinyint"/>
+            <column name="manager_id" type="bigint"/>
+
+            <column name="rate" type="varchar(15)"/>
+            <column name="rate_int" type="varchar(15)"/>
+            <column name="rate_ext" type="varchar(15)"/>
+            <column name="inspection" type="varchar(50)"/>
+            <column name="images" type="varchar(1000)"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="platform_id"
+                                 baseTableName="t_order"
+                                 constraintName="fk_order_platform_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="platform"/>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="t_order"
+                                 constraintName="fk_order_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="_user"/>
+        <addForeignKeyConstraint baseColumnNames="manager_id"
+                                 baseTableName="t_order"
+                                 constraintName="fk_order_manager_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="_user"/>
+
+        <createTable tableName="order_message">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="orderMessagePK"/>
+            </column>
+            <column name="order_id" type="bigint"/>
+            <column name="message_type" type="varchar(50)"/>
+            <column name="order_status" type="varchar(50)"/>
+            <column name="message" type="varchar(1000)"/>
+            <column name="extra" type="varchar(350)"/>
+            <column name="date" type="timestamp"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="order_message"
+                                 constraintName="fk_order_message_order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="t_order"/>
+
+        <addColumn tableName="watch_lot">
+            <column name="rate" type="varchar(15)"/>
+            <column name="rate_int" type="varchar(15)"/>
+            <column name="rate_ext" type="varchar(15)"/>
+            <column name="inspection" type="varchar(50)"/>
+            <column name="images" type="varchar(1000)"/>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="platform_id"
+                                 baseTableName="settings"
+                                 constraintName="fk_settings_platform_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="platform"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <createTable tableName="platform">
+            <column name="id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <column name="name" type="varchar(150)"/>
+            <column name="comment" type="varchar(500)"/>
+        </createTable>
+        <loadData
+            file="config/liquibase/data/platform.csv"
+            separator=";"
+            tableName="platform"/>
+    </changeSet>
+
+    <changeSet author="agrushetskiy" id="00000000000002">
+        <validCheckSum>8:e2431405cdcf44bc1a45c139adde930f</validCheckSum>
+        <createTable tableName="filter_value">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="filter_valuePK"/>
+            </column>
+            <column name="value" type="varchar(150)"/>
+            <column name="name" type="varchar(150)"/>
+            <column name="filter_name" type="varchar(50)"/>
+            <column name="parent_value" type="varchar(150)"/>
+            <column name="platform_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

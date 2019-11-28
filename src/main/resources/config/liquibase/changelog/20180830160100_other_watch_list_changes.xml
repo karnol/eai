@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="agrushetskiy" id="00000000000001">
+        <addColumn tableName="watch_lot">
+            <column name="price_original" type="integer"/>
+            <column name="previous_prices_history" type="varchar(500)"/>
+        </addColumn>
+        <dropColumn tableName="watch_lot">
+            <column name="previous_price_usd"/>
+            <column name="previous_status"/>
+        </dropColumn>
+    </changeSet>
+</databaseChangeLog>

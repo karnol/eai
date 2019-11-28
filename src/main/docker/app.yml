@@ -1,0 +1,38 @@
+version: '2'
+services:
+#  easyimport-app:
+#    image: easyimport
+#    environment:
+#      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+#      - SPRING_PROFILES_ACTIVE=prod,swagger
+#      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://easyimport-postgresql:5432/easyimport
+#      - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+#      - SPRING_DATA_JEST_URI=http://easyimport-elasticsearch:9200
+#      - SPRING_ELASTICSEARCH_REST_URIS=http://easyimport-elasticsearch:9200
+#    ports:
+#      - 8080:8080
+  easyimport-postgresql:
+    extends:
+      file: postgresql.yml
+      service: easyimport-postgresql
+  easyimport-elasticsearch:
+    extends:
+      file: elasticsearch.yml
+      service: easyimport-elasticsearch
+  easyimport-hazelcast-management-center:
+      extends:
+        file: hazelcast-management-center.yml
+        service: easyimport-hazelcast-management-center
+  easyimport-prometheus:
+      extends:
+          file: monitoring.yml
+          service: easyimport-prometheus
+  easyimport-grafana:
+      extends:
+          file: monitoring.yml
+          service: easyimport-grafana
+  sonar:
+      extends:
+          file: sonar.yml
+          service: easyimport-sonar
